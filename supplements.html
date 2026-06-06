@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +11,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
+
   <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
   <aside class="sidebar" id="sidebar">
     <div class="brand"><h1>VitaSync</h1><p data-translate="pharmacy_grade">Pharmacy Grade</p></div>
@@ -52,23 +56,40 @@
 
   <div class="supplements-grid" id="supplementsGrid"></div>
 
+  <!-- Supplement Add Modal -->
   <div class="modal" id="suppModal">
     <div class="modal-content">
       <div class="modal-header">
         <h3>Add New Supplement</h3>
         <button onclick="closeModal('suppModal')" style="background:none; border:none; font-size:18px; cursor:pointer;"><i class="fas fa-times"></i></button>
       </div>
-      <div class="form-group"><label>Supplement Name</label><input type="text" id="suppAddName" placeholder="e.g. Curcumin C3"></div>
-      <div class="form-group"><label>Dose</label><input type="text" id="suppAddDose" placeholder="e.g. 500 mg"></div>
-      <div class="form-group"><label>Category</label>
-        <select id="suppAddCategory"><option>Vitamin</option><option>Mineral</option><option>Herbal</option><option>Amino Acid</option></select>
+      <div class="form-group">
+        <label>Supplement Name</label>
+        <input type="text" id="suppAddName" placeholder="e.g. Curcumin C3">
       </div>
-      <div class="form-group"><label>Description</label><input type="text" id="suppAddDesc" placeholder="e.g. Supports healthy cardiovascular system"></div>
+      <div class="form-group">
+        <label>Dose</label>
+        <input type="text" id="suppAddDose" placeholder="e.g. 500 mg">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="suppAddCategory">
+          <option>Vitamin</option>
+          <option>Mineral</option>
+          <option>Herbal</option>
+          <option>Amino Acid</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="suppAddDesc" placeholder="e.g. Supports healthy cardiovascular system">
+      </div>
       <button class="btn-add" id="saveSuppBtn" style="width:100%; padding:12px; margin-top:16px;">Add to Inventory</button>
     </div>
   </div>
 </main>
 
+  <!-- Interactive CS Chatbot Widget -->
   <div class="support-widget">
     <div class="support-bubble" id="chatBubble"><i class="fas fa-comments"></i></div>
     <div class="chat-box" id="chatBox">
@@ -77,7 +98,7 @@
         <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;"><i class="fas fa-times"></i></button>
       </div>
       <div class="chat-messages" id="chatMessages">
-        <div class="chat-message bot">Halo! Saya asisten AI VitaSync. Ada yang bisa saya bantu?</div>
+        <div class="chat-message bot">Halo! Saya asisten AI VitaSync. Ada yang bisa saya bantu terkait suplemen atau kesehatan Anda hari ini?</div>
       </div>
       <div class="chat-chips">
         <div class="chat-chip" onclick="askQuickQuestion(1)">Apple Health Sync?</div>
@@ -90,8 +111,43 @@
       </div>
     </div>
   </div>
-  <div id="toastMessage" style="position:fixed; bottom:20px; left:20px; color:white; padding:12px 24px; border-radius:8px; display:none; z-index:9999; font-weight:600;"></div>
+
+  <div id="toastMessage" style="position:fixed; bottom:20px; left:20px; color:white; padding:12px 24px; border-radius:8px; display:none; transition:all 0.3s; z-index:9999; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.2);"></div>
+  
+  <!-- Supplement Detail Modal -->
+  <div class="modal" id="supplementDetailModal" style="z-index:9999; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center;">
+    <div class="modal-content" style="width: 520px; max-width:90%; background:white; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:12px; margin-bottom:16px;">
+        <h3 id="detailSuppName" style="margin:0; font-size:20px; font-weight:700; color:var(--text-dark);">Supplement Details</h3>
+        <button onclick="closeModal('supplementDetailModal')" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--text-muted);"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="padding: 8px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <span id="detailSuppCategory" style="background:var(--primary-light); color:var(--primary-color); padding:4px 10px; border-radius:6px; font-size:11px; font-weight:800; text-transform:uppercase;">Category</span>
+          <strong id="detailSuppDose" style="font-size:15px; color:var(--text-dark);">Dose: -</strong>
+        </div>
+        
+        <p id="detailSuppDesc" style="font-size:14px; color:var(--text-dark); line-height:1.6; margin-bottom:20px; background:rgba(0,0,0,0.02); padding:16px; border-radius:10px; border:1px solid var(--border-color);"></p>
+        
+        <div style="background:var(--primary-light); border:1px solid rgba(216,27,96,0.1); padding:14px; border-radius:10px; margin-bottom:16px;">
+          <h4 style="font-size:13px; font-weight:700; color:var(--primary-color); margin:0 0 6px 0;"><i class="fas fa-microscope"></i> Clinical Biohacking Intake Guideline</h4>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin:0;">Optimal biological absorption is achieved when taken in accordance with specific mineral transporters. Take at scheduled times daily.</p>
+        </div>
+        
+        <div style="background:rgba(216,27,96,0.03); border:1px solid rgba(216,27,96,0.08); padding:14px; border-radius:10px; margin:0;">
+          <h4 style="font-size:13px; font-weight:700; color:var(--primary-color); margin:0 0 6px 0;"><i class="fas fa-exclamation-triangle"></i> Known Chemical Conflict Spacing</h4>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin:0;">Ensure a minimum spacing of 4 hours from competitive divalent metals (e.g. Iron vs Calcium) and metal-binding tea/coffee polyphenols.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; margin-top:20px; border-top:1px solid var(--border-color); padding-top:16px;">
+        <button class="btn-primary" id="detailScheduleBtn" style="flex:1; border-radius:8px; font-weight:700;">+ Add to Schedule</button>
+        <button onclick="closeModal('supplementDetailModal')" style="flex:1; background:#eee; border:none; border-radius:8px; cursor:pointer; font-weight:700; color:var(--text-dark);">Close</button>
+      </div>
+    </div>
+  </div>
+  
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
+

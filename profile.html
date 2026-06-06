@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VitaSync - Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+
+  <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><h1>VitaSync</h1><p data-translate="pharmacy_grade">Pharmacy Grade</p></div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html" class="nav-link "><i class="fas fa-th-large"></i> <span data-translate="dashboard">Dashboard</span></a></li>
+      <li class="nav-item"><a href="schedule.html" class="nav-link "><i class="far fa-calendar-alt"></i> <span data-translate="schedule">Schedule</span></a></li>
+      <li class="nav-item"><a href="supplements.html" class="nav-link "><i class="fas fa-pills"></i> <span data-translate="my_supplements">My Supplements</span></a></li>
+      <li class="nav-item"><a href="interactions.html" class="nav-link "><i class="fas fa-shield-alt"></i> <span data-translate="interactions">Interactions</span></a></li>
+      <li class="nav-item"><a href="scanner.html" class="nav-link "><i class="fas fa-camera"></i> <span data-translate="label_scanner">Label Scanner</span></a></li>
+      <li class="nav-item"><a href="biomarkers.html" class="nav-link "><i class="fas fa-chart-line"></i> <span data-translate="biomarkers">Biomarkers</span></a></li>
+      <li class="nav-item"><a href="stacks.html" class="nav-link "><i class="fas fa-layer-group"></i> <span data-translate="active_stacks">Active Stacks</span></a></li>
+      <li class="nav-item"><a href="reminders.html" class="nav-link "><i class="fas fa-bell"></i> <span data-translate="reminders">Reminders</span></a></li>
+      <li class="nav-item"><a href="hydration.html" class="nav-link "><i class="fas fa-tint"></i> <span data-translate="hydration">Hydration</span></a></li>
+      <li class="nav-item"><a href="insights.html" class="nav-link "><i class="fas fa-lightbulb"></i> <span data-translate="health_insights">Health Insights</span></a></li>
+      <li class="nav-item"><a href="feed.html" class="nav-link "><i class="fas fa-project-diagram"></i> <span data-translate="community_feed">Community Feed</span></a></li>
+      <li class="nav-item"><a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> <span data-translate="profile">Profile</span></a></li>
+      <li class="nav-item"><a href="settings.html" class="nav-link "><i class="fas fa-cog"></i> <span data-translate="settings">Settings</span></a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <button class="btn-add"><i class="fas fa-plus"></i> <span data-translate="add_supplement">Add Supplement</span></button>
+      <div style="padding: 8px 16px; display: flex; gap: 8px;">
+        <button onclick="changeLanguage('en')" style="flex:1; padding:4px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer;">EN</button>
+        <button onclick="changeLanguage('id')" style="flex:1; padding:4px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer;">ID</button>
+      </div>
+    </div>
+  </aside>
+
+<main class="main-content">
+  <div style="display:grid; grid-template-columns: 1fr 1.5fr; gap:32px;">
+    
+    <div>
+      <div class="card" style="text-align:center; padding:32px 24px; margin-bottom:24px; position:relative;">
+        <button id="editProfileBtn" style="position:absolute; top:20px; right:20px; background:none; border:none; color:var(--primary-color); cursor:pointer; font-size:18px;"><i class="fas fa-pencil-alt"></i></button>
+        
+        <div style="width:120px; height:120px; border-radius:50%; overflow:hidden; margin:0 auto 16px; border:4px solid var(--primary-light); display:flex; align-items:center; justify-content:center;" id="profileImageContainer">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Avatar" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        
+        <h3 style="font-size:20px; font-weight:700;" id="profileName">Dr. Julian Vance</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:24px;" id="profileTitle">Chief of Metabolism Research</p>
+        
+        <div style="display:flex; justify-content:space-around; border-top:1px solid var(--border-color); padding-top:20px;">
+          <div>
+            <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Height</span>
+            <div style="font-size:18px; font-weight:700; margin-top:4px;"><span id="heightVal">185</span> cm</div>
+          </div>
+          <div>
+            <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-weight:600;">Weight</span>
+            <div style="font-size:18px; font-weight:700; margin-top:4px;"><span id="weightVal">82.4</span> kg</div>
+          </div>
+          <div>
+            <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-weight:600;">BMI</span>
+            <div style="font-size:18px; font-weight:700; margin-top:4px;" id="bmiVal">24.1</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:16px; font-size:16px; display:flex; justify-content:space-between; align-items:center;">
+          <span>Health Conditions</span>
+        </h3>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="profileConditionsContainer">
+          <!-- Dynamically populated conditions -->
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:16px;">Metabolic Vitality</h3>
+        <div style="height:200px; display:flex; align-items:flex-end; justify-content:space-around; padding-top:20px; border-bottom:2px solid var(--border-color);">
+          <div style="text-align:center; width:40px;">
+            <div style="height:120px; background:var(--primary-light); width:100%; border-radius:4px 4px 0 0; position:relative;">
+              <div style="position:absolute; bottom:0; left:0; width:100%; height:80px; background:var(--primary-color); border-radius:4px 4px 0 0;"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted); margin-top:8px; display:block;">Mon</span>
+          </div>
+          <div style="text-align:center; width:40px;">
+            <div style="height:120px; background:var(--primary-light); width:100%; border-radius:4px 4px 0 0; position:relative;">
+              <div style="position:absolute; bottom:0; left:0; width:100%; height:95px; background:var(--primary-color); border-radius:4px 4px 0 0;"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted); margin-top:8px; display:block;">Tue</span>
+          </div>
+          <div style="text-align:center; width:40px;">
+            <div style="height:120px; background:var(--primary-light); width:100%; border-radius:4px 4px 0 0; position:relative;">
+              <div style="position:absolute; bottom:0; left:0; width:100%; height:75px; background:var(--primary-color); border-radius:4px 4px 0 0;"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted); margin-top:8px; display:block;">Wed</span>
+          </div>
+          <div style="text-align:center; width:40px;">
+            <div style="height:120px; background:var(--primary-light); width:100%; border-radius:4px 4px 0 0; position:relative;">
+              <div style="position:absolute; bottom:0; left:0; width:100%; height:110px; background:var(--primary-color); border-radius:4px 4px 0 0;"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted); margin-top:8px; display:block;">Thu</span>
+          </div>
+          <div style="text-align:center; width:40px;">
+            <div style="height:120px; background:var(--primary-light); width:100%; border-radius:4px 4px 0 0; position:relative;">
+              <div style="position:absolute; bottom:0; left:0; width:100%; height:85px; background:var(--primary-color); border-radius:4px 4px 0 0;"></div>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted); margin-top:8px; display:block;">Fri</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:24px;" data-translate="preferences">Preferences</h3>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="display:block;" data-translate="daily_reminders">Daily Reminders</strong>
+              <span style="font-size:12px; color:var(--text-muted);">Receive smart push notifications</span>
+            </div>
+            <input type="checkbox" checked style="width:24px; height:24px; cursor:pointer;">
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="display:block;" data-translate="icloud_sync">iCloud Sync</strong>
+              <span style="font-size:12px; color:var(--text-muted);">Sync database across devices</span>
+            </div>
+            <input type="checkbox" checked style="width:24px; height:24px; cursor:pointer;">
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="display:block;" data-translate="app_language">App Language</strong>
+              <span style="font-size:12px; color:var(--text-muted);">Choose preferred translation</span>
+            </div>
+            <select style="padding:8px 12px; border-radius:8px; border:1px solid var(--border-color); font-weight:600; cursor:pointer;" onchange="changeLanguage(this.value)">
+              <option value="en">English</option>
+              <option value="id">Bahasa Indonesia</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div class="modal" id="profileEditModal" style="z-index:9999; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center;">
+    <div class="modal-content" style="width: 780px; max-width:95%; background:white; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:12px; margin-bottom:20px;">
+        <h3>Edit Personal Information</h3>
+        <button onclick="closeModal('profileEditModal')" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--text-muted);"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <!-- Sleek Unified Single-Row / Horizontal Flex Bar Layout -->
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end;">
+        <div class="form-group" style="flex:1.2; min-width:180px; margin-bottom:0;">
+          <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Full Name</label>
+          <input type="text" id="profileAddName" placeholder="Julian Vance" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color);">
+        </div>
+        <div class="form-group" style="flex:1.5; min-width:220px; margin-bottom:0;">
+          <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Title / Profession</label>
+          <input type="text" id="profileAddTitle" placeholder="Doctor / Medical Scientist" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color);">
+        </div>
+        <div class="form-group" style="flex:0.6; min-width:90px; margin-bottom:0;">
+          <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Height (cm)</label>
+          <input type="number" id="profileAddHeight" placeholder="185" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color);">
+        </div>
+        <div class="form-group" style="flex:0.6; min-width:90px; margin-bottom:0;">
+          <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Weight (kg)</label>
+          <input type="number" id="profileAddWeight" placeholder="82" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color);">
+        </div>
+      </div>
+      
+      <div style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:200px;">
+          <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:6px;">Profile Avatar URL</label>
+          <input type="text" id="profileImageUrl" placeholder="https://images.unsplash.com/... or upload" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border-color);">
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <button class="btn-primary" id="saveProfileBtn" style="padding:12px 24px; font-weight:700; border-radius:8px;">Save Changes</button>
+          <button onclick="closeModal('profileEditModal')" style="background:#eee; color:var(--text-dark); border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Condition Add Modal with Rich Pre-populated Suggestions -->
+  <div class="modal" id="conditionModal" style="z-index:9999; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center;">
+    <div class="modal-content" style="width: 500px; max-width:90%; background:white; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:12px; margin-bottom:16px;">
+        <h3>Add Health Condition</h3>
+        <button onclick="closeModal('conditionModal')" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--text-muted);"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="form-group" style="margin-bottom:16px;">
+        <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Condition Name / Nama Kondisi</label>
+        <input type="text" id="conditionAddName" placeholder="e.g. Iron Deficiency" style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border-color);">
+      </div>
+      
+      <!-- Pre-populated Clickable Health Conditions Suggestion Grid -->
+      <div style="margin-top: 16px; margin-bottom: 20px;">
+        <label style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); display:block; margin-bottom:10px;">Quick Recommendations / Rekomendasi Cepat</label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="quickConditionSuggestions">
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Iron Deficiency')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Iron Deficiency 🩸</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Vitamin D Deficiency')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Vitamin D Deficiency ☀️</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Insomnia')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Insomnia 🌙</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Insulin Resistance')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Insulin Resistance 🧬</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Hypertension')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Hypertension 🩺</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Joint Pain')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Joint Pain 🦴</span>
+          <span class="suggestion-pill" onclick="selectConditionSuggestion('Lactose Intolerance')" style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; font-weight:600; color:var(--text-dark); transition:all 0.2s;">Lactose Intolerance 🥛</span>
+        </div>
+      </div>
+      
+      <button class="btn-add" id="saveConditionBtn" style="width:100%; padding:12px; margin-top:16px;">Add Condition</button>
+    </div>
+  </div>
+</main>
+
+  <!-- Interactive CS Chatbot Widget -->
+  <div class="support-widget">
+    <div class="support-bubble" id="chatBubble"><i class="fas fa-comments"></i></div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <h4 style="margin:0; font-size:14px; font-weight:700;"><i class="fas fa-user-md"></i> <span data-translate="chat_support">VitaSync Support</span></h4>
+        <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">Halo! Saya asisten AI VitaSync. Ada yang bisa saya bantu terkait suplemen atau kesehatan Anda hari ini?</div>
+      </div>
+      <div class="chat-chips">
+        <div class="chat-chip" onclick="askQuickQuestion(1)">Apple Health Sync?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(2)">Add Supplements?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(3)">Interaction checker?</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Tulis pertanyaan Anda..." onkeypress="handleChatKey(event)">
+        <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastMessage" style="position:fixed; bottom:20px; left:20px; color:white; padding:12px 24px; border-radius:8px; display:none; transition:all 0.3s; z-index:9999; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.2);"></div>
+  
+  <!-- Supplement Detail Modal -->
+  <div class="modal" id="supplementDetailModal" style="z-index:9999; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center;">
+    <div class="modal-content" style="width: 520px; max-width:90%; background:white; padding:24px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:12px; margin-bottom:16px;">
+        <h3 id="detailSuppName" style="margin:0; font-size:20px; font-weight:700; color:var(--text-dark);">Supplement Details</h3>
+        <button onclick="closeModal('supplementDetailModal')" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--text-muted);"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="padding: 8px 0;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <span id="detailSuppCategory" style="background:var(--primary-light); color:var(--primary-color); padding:4px 10px; border-radius:6px; font-size:11px; font-weight:800; text-transform:uppercase;">Category</span>
+          <strong id="detailSuppDose" style="font-size:15px; color:var(--text-dark);">Dose: -</strong>
+        </div>
+        
+        <p id="detailSuppDesc" style="font-size:14px; color:var(--text-dark); line-height:1.6; margin-bottom:20px; background:rgba(0,0,0,0.02); padding:16px; border-radius:10px; border:1px solid var(--border-color);"></p>
+        
+        <div style="background:var(--primary-light); border:1px solid rgba(216,27,96,0.1); padding:14px; border-radius:10px; margin-bottom:16px;">
+          <h4 style="font-size:13px; font-weight:700; color:var(--primary-color); margin:0 0 6px 0;"><i class="fas fa-microscope"></i> Clinical Biohacking Intake Guideline</h4>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin:0;">Optimal biological absorption is achieved when taken in accordance with specific mineral transporters. Take at scheduled times daily.</p>
+        </div>
+        
+        <div style="background:rgba(216,27,96,0.03); border:1px solid rgba(216,27,96,0.08); padding:14px; border-radius:10px; margin:0;">
+          <h4 style="font-size:13px; font-weight:700; color:var(--primary-color); margin:0 0 6px 0;"><i class="fas fa-exclamation-triangle"></i> Known Chemical Conflict Spacing</h4>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin:0;">Ensure a minimum spacing of 4 hours from competitive divalent metals (e.g. Iron vs Calcium) and metal-binding tea/coffee polyphenols.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; margin-top:20px; border-top:1px solid var(--border-color); padding-top:16px;">
+        <button class="btn-primary" id="detailScheduleBtn" style="flex:1; border-radius:8px; font-weight:700;">+ Add to Schedule</button>
+        <button onclick="closeModal('supplementDetailModal')" style="flex:1; background:#eee; border:none; border-radius:8px; cursor:pointer; font-weight:700; color:var(--text-dark);">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

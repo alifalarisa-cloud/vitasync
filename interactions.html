@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VitaSync - Active Stacks</title>
+  <title>VitaSync - Interactions</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,10 +20,10 @@
       <li class="nav-item"><a href="index.html" class="nav-link "><i class="fas fa-th-large"></i> <span data-translate="dashboard">Dashboard</span></a></li>
       <li class="nav-item"><a href="schedule.html" class="nav-link "><i class="far fa-calendar-alt"></i> <span data-translate="schedule">Schedule</span></a></li>
       <li class="nav-item"><a href="supplements.html" class="nav-link "><i class="fas fa-pills"></i> <span data-translate="my_supplements">My Supplements</span></a></li>
-      <li class="nav-item"><a href="interactions.html" class="nav-link "><i class="fas fa-shield-alt"></i> <span data-translate="interactions">Interactions</span></a></li>
+      <li class="nav-item"><a href="interactions.html" class="nav-link active"><i class="fas fa-shield-alt"></i> <span data-translate="interactions">Interactions</span></a></li>
       <li class="nav-item"><a href="scanner.html" class="nav-link "><i class="fas fa-camera"></i> <span data-translate="label_scanner">Label Scanner</span></a></li>
       <li class="nav-item"><a href="biomarkers.html" class="nav-link "><i class="fas fa-chart-line"></i> <span data-translate="biomarkers">Biomarkers</span></a></li>
-      <li class="nav-item"><a href="stacks.html" class="nav-link active"><i class="fas fa-layer-group"></i> <span data-translate="active_stacks">Active Stacks</span></a></li>
+      <li class="nav-item"><a href="stacks.html" class="nav-link "><i class="fas fa-layer-group"></i> <span data-translate="active_stacks">Active Stacks</span></a></li>
       <li class="nav-item"><a href="reminders.html" class="nav-link "><i class="fas fa-bell"></i> <span data-translate="reminders">Reminders</span></a></li>
       <li class="nav-item"><a href="hydration.html" class="nav-link "><i class="fas fa-tint"></i> <span data-translate="hydration">Hydration</span></a></li>
       <li class="nav-item"><a href="insights.html" class="nav-link "><i class="fas fa-lightbulb"></i> <span data-translate="health_insights">Health Insights</span></a></li>
@@ -41,36 +41,81 @@
 
 <main class="main-content">
   <button onclick="history.back()" style="background:none; border:none; color:var(--text-muted); font-size:14px; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; gap:6px;"><i class="fas fa-arrow-left"></i> <span data-translate="back">Back</span></button>
-  <header class="header" style="display:flex; justify-content:space-between; align-items:center;">
-    <div>
-      <h2 data-translate="active_stacks">Active Stacks</h2>
-      <p>Combine multiple supplements for synergetic health benefits</p>
-    </div>
-    <button onclick="openModal('stackModal')" style="background:var(--primary-color); color:white; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer;"><i class="fas fa-plus"></i> Create Stack</button>
+  <header class="header">
+    <h2 data-translate="interactions">Interactions & Warnings</h2>
+    <p>Check supplement, food, and drug interactions</p>
   </header>
 
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:24px;" id="stacksGrid"></div>
+  <div style="display:grid; grid-template-columns: 2fr 1.5fr; gap:32px;">
+    <div>
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:16px;" data-translate="interaction_checker"><i class="fas fa-shield-alt"></i> Interaction Checker</h3>
+        <div style="display:flex; gap:8px; margin-bottom:24px;" id="interactionFilters">
+          <button class="btn-primary" style="width:auto; padding:8px 16px;" onclick="filterInteractionType('all')">All</button>
+          <button style="background:#eee; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;" onclick="filterInteractionType('supp-supp')">Supp-Supp</button>
+          <button style="background:#eee; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;" onclick="filterInteractionType('supp-food')">Supp-Food</button>
+          <button style="background:#eee; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;" onclick="filterInteractionType('supp-drug')">Supp-Drug</button>
+        </div>
 
-  <!-- Create Stack Modal -->
-  <div class="modal" id="stackModal">
+        <div style="margin-bottom:16px;">
+          <label style="font-weight:600; font-size:13px; display:block; margin-bottom:8px;">YOUR SUPPLEMENTS</label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="activeCheckSupps"></div>
+          <button onclick="openModal('checkSuppModal')" style="background:#fcfcfc; border:1px dashed var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; margin-top:8px;">+ Add Supplement</button>
+        </div>
+
+        <div>
+          <label style="font-weight:600; font-size:13px; display:block; margin-bottom:8px;">COMMON FOODS & DRUGS</label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="activeCheckFoods"></div>
+          <button onclick="openModal('checkFoodModal')" style="background:#fcfcfc; border:1px dashed var(--border-color); padding:6px 12px; border-radius:20px; font-size:12px; cursor:pointer; margin-top:8px;">+ Add Food/Drug</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Analysis Results</h3>
+        <div id="interactionResultsList" style="display:flex; flex-direction:column; gap:16px;"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:16px;">Auto-Detected</h3>
+        <div id="autoDetectedInteractions" style="display:flex; flex-direction:column; gap:16px;"></div>
+      </div>
+      
+      <div style="background:var(--primary-light); color:var(--primary-dark); padding:24px; border-radius:var(--radius);">
+        <h4 style="margin-bottom:8px;"><i class="fas fa-lightbulb"></i> The Science of Timing</h4>
+        <p style="font-size:14px; line-height:1.6;">Learn how spacing your supplements can improve bioavailability and prevent negative interactions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Check Supp -->
+  <div class="modal" id="checkSuppModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Create Supplement Stack</h3>
-        <button onclick="closeModal('stackModal')" style="background:none; border:none; font-size:18px; cursor:pointer;"><i class="fas fa-times"></i></button>
+        <h3>Add Supplement to Check</h3>
+        <button onclick="closeModal('checkSuppModal')" style="background:none; border:none; font-size:18px; cursor:pointer;"><i class="fas fa-times"></i></button>
       </div>
       <div class="form-group">
-        <label>Stack Name</label>
-        <input type="text" id="stackAddName" placeholder="e.g. Anti-Aging Formula">
+        <label>Select Supplement</label>
+        <select id="checkSuppNameSelect"></select>
+      </div>
+      <button class="btn-add" id="saveCheckSuppBtn" style="width:100%; padding:12px; margin-top:16px;">Add to Monitor List</button>
+    </div>
+  </div>
+
+  <!-- Modal Check Food -->
+  <div class="modal" id="checkFoodModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add Food/Drug to Check</h3>
+        <button onclick="closeModal('checkFoodModal')" style="background:none; border:none; font-size:18px; cursor:pointer;"><i class="fas fa-times"></i></button>
       </div>
       <div class="form-group">
-        <label>Description</label>
-        <input type="text" id="stackAddDesc" placeholder="e.g. Cellular recovery and DNA preservation">
+        <label>Select Food/Drug</label>
+        <select id="checkFoodNameSelect"></select>
       </div>
-      <div class="form-group">
-        <label>Supplements (comma separated)</label>
-        <input type="text" id="stackAddItems" placeholder="e.g. Vitamin C, Zinc, Resveratrol">
-      </div>
-      <button class="btn-add" id="saveStackBtn" style="width:100%; padding:12px; margin-top:16px;">Create Custom Stack</button>
+      <button class="btn-add" id="saveCheckFoodBtn" style="width:100%; padding:12px; margin-top:16px;">Add to Monitor List</button>
     </div>
   </div>
 </main>

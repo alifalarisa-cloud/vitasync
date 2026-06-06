@@ -1,0 +1,31 @@
+${htmlHead('Health Insights')}
+${sidebarHTML('insights')}
+<main class="main-content">
+  <header class="header">
+    <h2 data-translate="health_insights">Health Insights</h2>
+    <p>Scientific research compiled into digestible, actionable knowledge</p>
+  </header>
+
+  <div style="display:grid; grid-template-columns: 250px 1fr; gap:32px;">
+    <div>
+      <div class="card" style="padding:16px;">
+        <h4 style="margin-bottom:16px; font-size:14px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">CATEGORIES</h4>
+        <div style="display:flex; flex-direction:column; gap:8px;" id="insightCategoryFilters">
+          <button style="text-align:left; background:var(--primary-light); color:var(--primary-color); border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:600;" onclick="filterInsights('All')">All Categories</button>
+          <button style="text-align:left; background:none; border:none; padding:12px; border-radius:8px; cursor:pointer; color:var(--text-dark);" onclick="filterInsights('Biohacking')">Biohacking</button>
+          <button style="text-align:left; background:none; border:none; padding:12px; border-radius:8px; cursor:pointer; color:var(--text-dark);" onclick="filterInsights('Sleep Science')">Sleep Science</button>
+          <button style="text-align:left; background:none; border:none; padding:12px; border-radius:8px; cursor:pointer; color:var(--text-dark);" onclick="filterInsights('Nutrition')">Nutrition</button>
+          <button style="text-align:left; background:none; border:none; padding:12px; border-radius:8px; cursor:pointer; color:var(--text-dark);" onclick="filterInsights('Longevity')">Longevity</button>
+          <button style="text-align:left; background:none; border:none; padding:12px; border-radius:8px; cursor:pointer; color:var(--text-dark);" onclick="filterInsights('Metabolism')">Metabolism</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;" id="insightsContainer">
+        <!-- Dynamically rendered 20+ articles -->
+      </div>
+    </div>
+  </div>
+</main>
+${htmlFoot}
