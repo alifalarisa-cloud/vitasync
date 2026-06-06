@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VitaSync - Community Feed</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><h1>VitaSync</h1><p data-translate="pharmacy_grade">Pharmacy Grade</p></div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html" class="nav-link "><i class="fas fa-th-large"></i> <span data-translate="dashboard">Dashboard</span></a></li>
+      <li class="nav-item"><a href="schedule.html" class="nav-link "><i class="far fa-calendar-alt"></i> <span data-translate="schedule">Schedule</span></a></li>
+      <li class="nav-item"><a href="supplements.html" class="nav-link "><i class="fas fa-pills"></i> <span data-translate="my_supplements">My Supplements</span></a></li>
+      <li class="nav-item"><a href="interactions.html" class="nav-link "><i class="fas fa-shield-alt"></i> <span data-translate="interactions">Interactions</span></a></li>
+      <li class="nav-item"><a href="scanner.html" class="nav-link "><i class="fas fa-camera"></i> <span data-translate="label_scanner">Label Scanner</span></a></li>
+      <li class="nav-item"><a href="biomarkers.html" class="nav-link "><i class="fas fa-chart-line"></i> <span data-translate="biomarkers">Biomarkers</span></a></li>
+      <li class="nav-item"><a href="stacks.html" class="nav-link "><i class="fas fa-layer-group"></i> <span data-translate="active_stacks">Active Stacks</span></a></li>
+      <li class="nav-item"><a href="reminders.html" class="nav-link "><i class="fas fa-bell"></i> <span data-translate="reminders">Reminders</span></a></li>
+      <li class="nav-item"><a href="hydration.html" class="nav-link "><i class="fas fa-tint"></i> <span data-translate="hydration">Hydration</span></a></li>
+      <li class="nav-item"><a href="insights.html" class="nav-link "><i class="fas fa-lightbulb"></i> <span data-translate="health_insights">Health Insights</span></a></li>
+      <li class="nav-item"><a href="feed.html" class="nav-link active"><i class="fas fa-project-diagram"></i> <span data-translate="community_feed">Community Feed</span></a></li>
+      <li class="nav-item"><a href="profile.html" class="nav-link "><i class="fas fa-user"></i> <span data-translate="profile">Profile</span></a></li>
+      <li class="nav-item"><a href="settings.html" class="nav-link "><i class="fas fa-cog"></i> <span data-translate="settings">Settings</span></a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <div style="padding: 8px 16px; display: flex; gap: 8px;">
+        <button onclick="changeLanguage('en')" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">EN</button>
+        <button onclick="changeLanguage('id')" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">ID</button>
+      </div>
+    </div>
+  </aside>
+
+<main class="main-content">
+  <button onclick="history.back()" style="background:none; border:none; color:var(--text-muted); font-size:14px; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; gap:6px;"><i class="fas fa-arrow-left"></i> <span data-translate="back">Back</span></button>
+  <header class="header">
+    <h2 data-translate="community_feed">VitaShare Community</h2>
+    <p>Share and read expert biohacking insights on this health social network</p>
+  </header>
+
+  <div style="display:grid; grid-template-columns: 2fr 1fr; gap:32px;">
+    <div>
+      <div class="card" style="padding:20px; margin-bottom:24px;">
+        <div style="display:flex; gap:16px;">
+          <div class="tweet-avatar" id="feedMyAvatar"></div>
+          <div style="flex:1;">
+            <textarea id="tweetInput" placeholder="What's happening in your biohacking stack today?" style="width:100%; border:none; font-size:16px; outline:none; resize:none; min-height:80px; font-family:inherit; background:none; color:var(--text-dark);"></textarea>
+            <div style="display:flex; justify-content:flex-end; border-top:1px solid var(--border-color); padding-top:12px; margin-top:12px;">
+              <button onclick="postTweet()" class="btn-primary" style="width:auto; padding:8px 24px; border-radius:30px; font-weight:700;">Share</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tweetsContainer" style="display:flex; flex-direction:column; gap:0; border:1px solid var(--border-color); border-radius:16px; overflow:hidden;"></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:24px;">
+        <h4 style="margin-bottom:16px; font-size:14px; text-transform:uppercase; color:var(--text-muted); font-weight:700;">Trending Topics</h4>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div><span style="font-size:12px; color:var(--text-muted);">#Longevity &bull; Trending</span><strong style="display:block; font-size:14px; margin-top:4px;">NMN &amp; NAD+ Activators</strong></div>
+          <div><span style="font-size:12px; color:var(--text-muted);">#Biohacking &bull; Trending</span><strong style="display:block; font-size:14px; margin-top:4px;">Caffeine L-Theanine Stack</strong></div>
+          <div><span style="font-size:12px; color:var(--text-muted);">#Nutrition &bull; Trending</span><strong style="display:block; font-size:14px; margin-top:4px;">Magnesium Glycinate for REM</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+  <div class="support-widget">
+    <div class="support-bubble" id="chatBubble"><i class="fas fa-comments"></i></div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <h4 style="margin:0; font-size:14px; font-weight:700;"><i class="fas fa-user-md"></i> <span data-translate="chat_support">VitaSync Support</span></h4>
+        <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">Halo! Saya asisten AI VitaSync. Ada yang bisa saya bantu?</div>
+      </div>
+      <div class="chat-chips">
+        <div class="chat-chip" onclick="askQuickQuestion(1)">Apple Health Sync?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(2)">Add Supplements?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(3)">Interaction checker?</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Tulis pertanyaan Anda..." onkeypress="handleChatKey(event)">
+        <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+  <div id="toastMessage" style="position:fixed; bottom:20px; left:20px; color:white; padding:12px 24px; border-radius:8px; display:none; z-index:9999; font-weight:600;"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
