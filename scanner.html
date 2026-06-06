@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VitaSync - Label Scanner</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><h1>VitaSync</h1><p data-translate="pharmacy_grade">Pharmacy Grade</p></div>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html" class="nav-link "><i class="fas fa-th-large"></i> <span data-translate="dashboard">Dashboard</span></a></li>
+      <li class="nav-item"><a href="schedule.html" class="nav-link "><i class="far fa-calendar-alt"></i> <span data-translate="schedule">Schedule</span></a></li>
+      <li class="nav-item"><a href="supplements.html" class="nav-link "><i class="fas fa-pills"></i> <span data-translate="my_supplements">My Supplements</span></a></li>
+      <li class="nav-item"><a href="interactions.html" class="nav-link "><i class="fas fa-shield-alt"></i> <span data-translate="interactions">Interactions</span></a></li>
+      <li class="nav-item"><a href="scanner.html" class="nav-link active"><i class="fas fa-camera"></i> <span data-translate="label_scanner">Label Scanner</span></a></li>
+      <li class="nav-item"><a href="biomarkers.html" class="nav-link "><i class="fas fa-chart-line"></i> <span data-translate="biomarkers">Biomarkers</span></a></li>
+      <li class="nav-item"><a href="stacks.html" class="nav-link "><i class="fas fa-layer-group"></i> <span data-translate="active_stacks">Active Stacks</span></a></li>
+      <li class="nav-item"><a href="reminders.html" class="nav-link "><i class="fas fa-bell"></i> <span data-translate="reminders">Reminders</span></a></li>
+      <li class="nav-item"><a href="hydration.html" class="nav-link "><i class="fas fa-tint"></i> <span data-translate="hydration">Hydration</span></a></li>
+      <li class="nav-item"><a href="insights.html" class="nav-link "><i class="fas fa-lightbulb"></i> <span data-translate="health_insights">Health Insights</span></a></li>
+      <li class="nav-item"><a href="feed.html" class="nav-link "><i class="fas fa-project-diagram"></i> <span data-translate="community_feed">Community Feed</span></a></li>
+      <li class="nav-item"><a href="profile.html" class="nav-link "><i class="fas fa-user"></i> <span data-translate="profile">Profile</span></a></li>
+      <li class="nav-item"><a href="settings.html" class="nav-link "><i class="fas fa-cog"></i> <span data-translate="settings">Settings</span></a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <div style="padding: 8px 16px; display: flex; gap: 8px;">
+        <button onclick="changeLanguage('en')" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">EN</button>
+        <button onclick="changeLanguage('id')" style="flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; font-size:11px; cursor:pointer; font-weight:600;">ID</button>
+      </div>
+    </div>
+  </aside>
+
+<main class="main-content">
+  <button onclick="history.back()" style="background:none; border:none; color:var(--text-muted); font-size:14px; cursor:pointer; margin-bottom:12px; display:flex; align-items:center; gap:6px;"><i class="fas fa-arrow-left"></i> <span data-translate="back">Back</span></button>
+  <header class="header">
+    <h2 data-translate="label_scanner">Label Scanner</h2>
+    <p>Point your camera at the supplement facts to auto-extract ingredients</p>
+  </header>
+
+  <div style="display:grid; grid-template-columns: 2fr 1fr; gap:32px;">
+    <div>
+      <div style="background:#000; border-radius:var(--radius); overflow:hidden; position:relative; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;">
+        <video id="videoFeed" autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:none;"></video>
+        <div id="videoPlaceholder" style="color:#aaa; text-align:center; padding:20px;">
+          <i class="fas fa-camera" style="font-size:48px; margin-bottom:16px;"></i>
+          <p>Camera is currently off. Click the capture button to turn on camera feed.</p>
+        </div>
+        <div style="position:absolute; bottom:20px; display:flex; gap:16px; z-index:10;">
+          <button id="toggleFlashBtn" style="width:48px; height:48px; border-radius:50%; background:rgba(0,0,0,0.6); border:none; color:white; cursor:pointer;"><i class="fas fa-bolt"></i></button>
+          <button id="captureBtn" style="width:64px; height:64px; border-radius:50%; background:var(--primary-color); border:none; color:white; cursor:pointer; font-size:24px; display:flex; align-items:center; justify-content:center;"><i class="fas fa-camera"></i></button>
+          <button id="galleryBtn" style="width:48px; height:48px; border-radius:50%; background:rgba(0,0,0,0.6); border:none; color:white; cursor:pointer;"><i class="fas fa-image"></i></button>
+        </div>
+        <div style="position:absolute; top:20px; right:20px; z-index:10;">
+          <select id="cameraSelect" style="background:rgba(0,0,0,0.6); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:12px;">
+            <option value="environment">Back Camera</option>
+            <option value="user">Front Camera</option>
+          </select>
+        </div>
+        <input type="file" id="galleryInput" accept="image/*" style="display:none;">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;">
+        <div style="background:#fff8e1; border:1px solid #ffe082; padding:16px; border-radius:12px; text-align:center;">
+          <h4 style="color:#ff8f00; margin-bottom:4px;"><i class="fas fa-lightbulb"></i> Bright Lighting</h4>
+          <p style="font-size:12px; color:var(--text-muted);">Avoid shadows on the label for OCR accuracy.</p>
+        </div>
+        <div style="background:#fce4ec; border:1px solid #f8bbd0; padding:16px; border-radius:12px; text-align:center;">
+          <h4 style="color:var(--primary-color); margin-bottom:4px;"><i class="fas fa-arrows-alt-v"></i> 4-6 Inches</h4>
+          <p style="font-size:12px; color:var(--text-muted);">Hold camera steadily at this distance for sharp focus.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:16px;">Detected Ingredients</h3>
+      <div id="detectedResultsList" style="display:flex; flex-direction:column; gap:12px;">
+        <p style="color:var(--text-muted); font-size:14px; text-align:center; padding:40px 0;">No ingredients scanned yet. Turn on the camera or select an image to scan.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+  <div class="support-widget">
+    <div class="support-bubble" id="chatBubble"><i class="fas fa-comments"></i></div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <h4 style="margin:0; font-size:14px; font-weight:700;"><i class="fas fa-user-md"></i> <span data-translate="chat_support">VitaSync Support</span></h4>
+        <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">Halo! Saya asisten AI VitaSync. Ada yang bisa saya bantu?</div>
+      </div>
+      <div class="chat-chips">
+        <div class="chat-chip" onclick="askQuickQuestion(1)">Apple Health Sync?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(2)">Add Supplements?</div>
+        <div class="chat-chip" onclick="askQuickQuestion(3)">Interaction checker?</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Tulis pertanyaan Anda..." onkeypress="handleChatKey(event)">
+        <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+  <div id="toastMessage" style="position:fixed; bottom:20px; left:20px; color:white; padding:12px 24px; border-radius:8px; display:none; z-index:9999; font-weight:600;"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
